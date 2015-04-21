@@ -1,0 +1,131 @@
+<?php
+/*use the item selected from the dropdown to populate the next dropdown
+ *need to know which dropdown was selected, what value was selected,
+ *and need to "return" the next dropdown
+
+ *when retrieveing files, instead of doing a dropdown, show all the files
+ */
+
+function get_dropdown($uni=null, $dep=null, $prof=null, $cor=null, $sec=null) {
+    $dropdown_result = '';
+
+    include("db.php");
+    
+    if (!$uni) {
+        //populate university
+        $dropdown_result .= "<select id='university'>";
+
+        $query_result = @mysql_query("SELECT Name FROM university",$mydb);
+        $dropdown_result.=read_query_result($query_result, 'Name');
+        $dropdown_result.="</select>";
+    }
+
+    elseif (!$dep) {
+        //populate department using university
+        $dropdown_result .= "<select id='department'>";
+        $query_result = @mysql_query("SELECT Name FROM department WHERE U_ID = $uni",$mydb);
+        $dropdown_result.=read_query_result($query_result, 'Name');
+        $dropdown_result.="</select>";
+    }
+
+    elseif (!$prof && !$cor) {
+        //populate prof and cor using university
+        $dropdown_result .= "<select id='professor'>";
+        $query_result = @mysql_query("SELECT Name FROM professor WHERE D_ID = $dep",$mydb);
+        $dropdown_result.=read_query_result($query_result, 'Name');
+        $dropdown_result.="</select>";
+
+        $dropdown_result.="<br>";
+
+        $dropdown_result .= "<select id='course'>";
+        $query_result = @mysql_query("SELECT Name FROM course WHERE D_ID = $dep",$mydb);
+        $dropdown_result.=read_query_result($query_result, 'Name');
+        $dropdown_result.="</select>";
+    }
+
+    elseif (!$sec) {
+        if (!$prof) {
+            $query_result = @mysql_query("SELECT Year, Semester FROM section WHERE C_ID = $cor",$mydb);
+        }
+
+        elseif (!$cor) {            
+            $query_result = @mysql_query("SELECT Year, Semester FROM section WHERE P_ID = $prof",$mydb);
+        }
+
+        else {
+            $query_result = @mysql_query("SELECT Year, Semester FROM section WHERE C_ID = $cor or P_ID = $prof",$mydb);
+        }
+
+        $dropdown_result .= "<select id='section'>";
+        $dropdown_result.=read_query_result($query_result, 'Name');
+        $dropdown_result.="</select>";
+    }
+
+    else {
+        //get the files
+    }
+
+    //return $dropdown_result;
+    echo $dropdown_result;
+}
+
+/*
+ * Retrieves input from the query by getting the values
+ * from one attribute.  The output is done so the items 
+ * from the query can be made into a dropdown menu
+ */
+function read_query_result($query_result, $row_attribute) {
+    $query_output = '';
+
+    while ($row = mysql_fetch_array($query_result)) {
+        $query_output.="<option role='presentation'>{$row[$row_attribute]}</option>";
+    }
+
+    return $query_output;
+}
+
+/**
+ * Echoes a dropdown that has a given css id (which is also used as the
+ * name of its first option). The dropdown is populated by the result of a
+ * SQL query that needs to contain integer 'ID's and string 'Name's as values.
+ * @param $id = the string css id to give to the dropdown
+ * @param $queryResult = the result array of a mySQL query containing rows with
+        values for the attributes 'ID' and 'Name'
+ * Usage: output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
+ * Result: <select id="university">
+                <option value="-1">university[choose one]</option>
+                <option value="1">Appalachian State University</option>
+                <option value="2">Arizona State University</option>
+            </select>
+*/
+function output_named_dropdown_with_id($id, $queryResult) {
+    echo '<select id="'.$id.'"><option value="-1">'.$id.' [choose one]</option>';
+    while ($row = mysql_fetch_array($queryResult)) {
+        echo '<option value="'.$row['ID'].'">'.$row['Name'].'</option>';
+    }
+    echo '</select>';
+}
+
+/*
+    Checks whether the variable currently holds the string value 'undefined'
+    and sets any variables with that value to be null. The 'undefined' variable
+    is introduced by AJAX when sending GET requests with undefined javascript
+    variables.
+    Usage:
+    $something = handle_undefined($something);
+*/
+function handle_undefined($var) {
+    return $var == 'undefined' ? null : $var;
+}
+
+//generate a dropdown whenever this script is run from AJAX
+/*get_dropdown(
+    handle_undefined($_GET['uni']),
+    handle_undefined($_GET['dep']),
+    handle_undefined($_GET['prof']),
+    handle_undefined($_GET['cor']),
+    handle_undefined($_GET['sec'])
+);*/
+//echo "{$_POST['uni']}/{$_POST['oldUni']}<br>{$_POST['dep']}/{$_POST['oldDep']}<br>{$_POST['prof']}/{$_POST['oldProf']}<br>{$_POST['cor']}/{$_POST['oldCor']}<br>{$_POST['sec']}/{$_POST['oldSec']}<br>";
+echo '<pre>'.var_export($_GET, true).'</pre>';
+output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
