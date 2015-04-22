@@ -101,7 +101,7 @@ function read_query_result($query_result, $row_attribute) {
 function output_named_dropdown_with_id($id, $queryResult) {
     echo '<select id="'.$id.'"><option value="-1">'.$id.' [choose one]</option>';
     while ($row = mysql_fetch_array($queryResult)) {
-    	echo '.'
+    	echo ".";
         echo '<option value="'.$row['ID'].'">'.$row['Name'].'</option>';
     }
     echo '</select>';
@@ -142,7 +142,7 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
 		output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
 		return;
     }	
-    if (changed_from_null($newUni, $oldUni) || changed_from_val($newUni, $oldUni)) {
+    if (changed_from_null($newUni, $oldUni) || changed_from_val($newUni, $oldU)) {
     	output_named_dropdown_with_id('department', mysql_query("select ID, Name from department where U_ID = $newUni;")); 
     }
 }
