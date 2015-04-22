@@ -144,7 +144,7 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
 		output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
 		return;
     }	
-    if (changed_from_null($newUni, $oldUni) || changed_from_val($newUni, $oldU)) {
+    if (changed_from_null($newUni, $oldUni)/* || changed_from_val($newUni, $oldU)*/) {
     	echo "<h2>case 2</h2>";
     	output_named_dropdown_with_id('department', mysql_query("select ID, Name from department where U_ID = $newUni;")); 
     }
