@@ -100,12 +100,12 @@ function read_query_result($query_result, $row_attribute) {
             </select>
 */
 function output_named_dropdown_with_id($id, $queryResult) {
-    echo '<select class="form-control" id="'.$id.'"><option value="-1">'.$id.' [choose one]</option>';
+    echo '<li class="dropdown"><select class="form-control" id="'.$id.'"><option value="-1">'.$id.' [choose one]</option>';
     
     while ($row = mysql_fetch_array($queryResult)) {
         echo '<option value="'.$row['ID'].'">'.$row['Name'].'</option>';
     }
-    echo '</select>';
+    echo '</select></li>';
 }
 
 /*
