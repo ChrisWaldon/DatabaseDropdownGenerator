@@ -138,7 +138,7 @@ function unchanged($newVal, $oldVal) {
  * back-end response.
  */
 function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $newCor, $oldCor, $newSec, $oldSec) {
-	echo "<h1>dispatched</h1><br><p style='color; white;'>$newUni, $oldUni</p>";
+	echo "<h1>dispatched</h1><br><p style='color: white;'>$newUni, $oldUni</p>";
     if ($newUni == null) { //if nothing has been selected. Presumably, nothing has been served to the user
     	echo "<h2>case 1</h2>";
 		output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
