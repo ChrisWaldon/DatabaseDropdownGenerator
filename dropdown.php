@@ -142,6 +142,9 @@ function unchanged($newVal, $oldVal) {
  * back-end response.
  */
 function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $newCor, $oldCor, $newSec, $oldSec) {
+	if ($newUni == -1) {//if invalid selection, do nothing.
+		return; 
+	}
     if ($newUni == null) { //if nothing has been selected. Presumably, nothing has been served to the user
 		output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
 		return;
