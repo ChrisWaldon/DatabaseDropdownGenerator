@@ -1,4 +1,6 @@
 <?php
+
+include("db.php");
 /*use the item selected from the dropdown to populate the next dropdown
  *need to know which dropdown was selected, what value was selected,
  *and need to "return" the next dropdown
@@ -9,7 +11,6 @@
 function get_dropdown($uni=null, $dep=null, $prof=null, $cor=null, $sec=null) {
     $dropdown_result = '';
 
-    include("db.php");
     
     if (!$uni) {
         //populate university
