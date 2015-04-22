@@ -138,12 +138,6 @@ function unchanged($newVal, $oldVal) {
  * back-end response.
  */
 function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $newCor, $oldCor, $newSec, $oldSec) {
-	echo "uni $newUni/$oldUni";
-	echo "dep $newDep/$oldDep";
-	echo "prof $newProf/$oldProf";
-	echo "cor $newCor/$oldCor";
-	echo "sec $newSec/$oldSec";
-	echo "<h1>dispatched</h1><br><p style='color: white;'>$newUni, $oldUni</p>";
     if ($newUni == null) { //if nothing has been selected. Presumably, nothing has been served to the user
     	echo "<h2>case 1</h2>";
 		output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
@@ -151,7 +145,9 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     }	
     if (changed_from_null($newUni, $oldUni)/* || changed_from_val($newUni, $oldU)*/) {
     	echo "<h2>case 2</h2>";
-    	output_named_dropdown_with_id('department', mysql_query("select ID, Name from department where U_ID = $newUni;")); 
+    	$sql = "select ID, Name from department where U_ID = $newUni;";
+    	output_named_dropdown_with_id('department', mysql_query($sql)); 
+    	echo "<pre>$sql</pre>";
     }
 }
 //generate a dropdown whenever this script is run from AJAX
