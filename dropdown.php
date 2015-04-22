@@ -155,10 +155,10 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     	echo "<pre>$sql</pre>";
     }
     if (changed_from_null($newDep, $oldDep) || changed_from_val($newDep, $oldDep)) {
-    	$sql = "select ID, Name from professor where U_ID = $newUni and D_ID = $newDep;";
+    	$sql = "select ID, Name from professor where D_ID = $newDep;";
     	output_named_dropdown_with_id('professor', mysql_query($sql)); 
     	echo "<pre>$sql</pre>";
-    	$sql = "select ID, Name from course where U_ID = $newUni and D_ID = $newDep;";
+    	$sql = "select ID, Name from course where D_ID = $newDep;";
     	output_named_dropdown_with_id('course', mysql_query($sql)); 
     	echo "<pre>$sql</pre>";
     }
