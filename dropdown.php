@@ -118,6 +118,30 @@ function handle_undefined($var) {
     return $var == 'undefined' ? null : $var;
 }
 
+/*
+ * helper function taht determines whether a new value has changed from null
+ */
+function changed_from_null($newVal, $oldVal) {
+	return $oldVal == null && $newVal != $oldVal;
+}
+
+function changed_from_val($newVal, $oldVal) {
+	return $oldVal != null && $newVal != $oldVal;
+}
+
+function unchanged($newVal, $oldVal) {
+	return $newVal == $oldVal;
+}
+/*
+ * This function accepts all of the possible values from the site front-end and requests the appropriate
+ * back-end response.
+ */
+function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $newCor, $oldCor, $newSec, $oldSec) {
+    if ($newUni == null) { //if nothing has been selected. Presumably, nothing has been served to the user
+		output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
+		return;
+    }	
+}
 //generate a dropdown whenever this script is run from AJAX
 /*get_dropdown(
     handle_undefined($_GET['uni']),
@@ -128,4 +152,14 @@ function handle_undefined($var) {
 );*/
 //echo "{$_POST['uni']}/{$_POST['oldUni']}<br>{$_POST['dep']}/{$_POST['oldDep']}<br>{$_POST['prof']}/{$_POST['oldProf']}<br>{$_POST['cor']}/{$_POST['oldCor']}<br>{$_POST['sec']}/{$_POST['oldSec']}<br>";
 echo '<pre>'.var_export($_GET, true).'</pre>';
-output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
+dispatcher(handle_undefined($_GET['uni']),
+		handle_undefined($_GET['oldUni']),
+		handle_undefined($_GET['dep']),
+		handle_undefined($_GET['oldDep']),
+		handle_undefined($_GET['prof']),
+		handle_undefined($_GET['oldProf']),
+		handle_undefined($_GET['cor']),
+		handle_undefined($_GET['oldCor']),
+		handle_undefined($_GET['sec']),
+		handle_undefined($_GET['oldSec'])
+		);
