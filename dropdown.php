@@ -143,12 +143,10 @@ function unchanged($newVal, $oldVal) {
  */
 function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $newCor, $oldCor, $newSec, $oldSec) {
     if ($newUni == null) { //if nothing has been selected. Presumably, nothing has been served to the user
-    	echo "<h2>case 1</h2>";
 		output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
 		return;
     }	
     if (changed_from_null($newUni, $oldUni)/* || changed_from_val($newUni, $oldU)*/) {
-    	echo "<h2>case 2</h2>";
     	$sql = "select ID, Name from department where U_ID = $newUni;";
     	output_named_dropdown_with_id('department', mysql_query($sql)); 
     	echo "<pre>$sql</pre>";
@@ -163,7 +161,6 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     handle_undefined($_GET['sec'])
 );*/
 //echo "{$_POST['uni']}/{$_POST['oldUni']}<br>{$_POST['dep']}/{$_POST['oldDep']}<br>{$_POST['prof']}/{$_POST['oldProf']}<br>{$_POST['cor']}/{$_POST['oldCor']}<br>{$_POST['sec']}/{$_POST['oldSec']}<br>";
-echo '<pre>'.var_export($_GET, true).'</pre>';
 dispatcher(handle_undefined($_GET['uni']),
 		handle_undefined($_GET['oldUni']),
 		handle_undefined($_GET['dep']),
