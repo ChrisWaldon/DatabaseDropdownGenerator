@@ -116,7 +116,7 @@ function output_named_dropdown_with_id($id, $queryResult) {
     $something = handle_undefined($something);
 */
 function handle_undefined($var) {
-    return $var == 'undefined' ? null : $var;
+    return ($var == 'undefined' || $var == 'null') ? null : $var;
 }
 
 /*
