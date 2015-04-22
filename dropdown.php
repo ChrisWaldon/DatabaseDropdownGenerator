@@ -138,6 +138,11 @@ function unchanged($newVal, $oldVal) {
  * back-end response.
  */
 function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $newCor, $oldCor, $newSec, $oldSec) {
+	echo "uni $newUni/$oldUni";
+	echo "dep $newDep/$oldDep";
+	echo "prof $newProf/$oldProf";
+	echo "cor $newCor/$oldCor";
+	echo "sec $newSec/$oldSec";
 	echo "<h1>dispatched</h1><br><p style='color: white;'>$newUni, $oldUni</p>";
     if ($newUni == null) { //if nothing has been selected. Presumably, nothing has been served to the user
     	echo "<h2>case 1</h2>";
