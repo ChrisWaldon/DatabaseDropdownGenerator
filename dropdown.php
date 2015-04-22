@@ -116,7 +116,7 @@ function output_named_dropdown_with_id($id, $queryResult) {
     Usage:
     $something = handle_undefined($something);
 */
-function handle_undefined($var) {
+function clean_input($var) {
 	if (is_int($var)) {
 		return intval($var);
 	}
@@ -146,9 +146,17 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
 		output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
 		return;
     }	
-    if (changed_from_null($newUni, $oldUni) || changed_from_val($newUni, $oldU)) {
+    if (changed_from_null($newUni, $oldUni) || changed_from_val($newUni, $oldU)) {//if we have a new university, re-serve department
     	$sql = "select ID, Name from department where U_ID = $newUni;";
     	output_named_dropdown_with_id('department', mysql_query($sql)); 
+    	echo "<pre>$sql</pre>";
+    }
+    if (changed_from_null($newDep, $oldDep) || changed_from_val($newDep, $oldDep)) {
+    	$sql = "select ID, Name from professor where U_ID = $newUni and D_ID = $newDep;";
+    	output_named_dropdown_with_id('professor', mysql_query($sql)); 
+    	echo "<pre>$sql</pre>";
+    	$sql = "select ID, Name from course where U_ID = $newUni and D_ID = $newDep;";
+    	output_named_dropdown_with_id('course', mysql_query($sql)); 
     	echo "<pre>$sql</pre>";
     }
 }
@@ -161,14 +169,14 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     handle_undefined($_GET['sec'])
 );*/
 //echo "{$_POST['uni']}/{$_POST['oldUni']}<br>{$_POST['dep']}/{$_POST['oldDep']}<br>{$_POST['prof']}/{$_POST['oldProf']}<br>{$_POST['cor']}/{$_POST['oldCor']}<br>{$_POST['sec']}/{$_POST['oldSec']}<br>";
-dispatcher(handle_undefined($_GET['uni']),
-		handle_undefined($_GET['oldUni']),
-		handle_undefined($_GET['dep']),
-		handle_undefined($_GET['oldDep']),
-		handle_undefined($_GET['prof']),
-		handle_undefined($_GET['oldProf']),
-		handle_undefined($_GET['cor']),
-		handle_undefined($_GET['oldCor']),
-		handle_undefined($_GET['sec']),
-		handle_undefined($_GET['oldSec'])
+dispatcher(clean_input($_GET['uni']),
+		clean_input($_GET['oldUni']),
+		clean_input($_GET['dep']),
+		clean_input($_GET['oldDep']),
+		clean_input($_GET['prof']),
+		clean_input($_GET['oldProf']),
+		clean_input($_GET['cor']),
+		clean_input($_GET['oldCor']),
+		clean_input($_GET['sec']),
+		clean_input($_GET['oldSec'])
 		);
