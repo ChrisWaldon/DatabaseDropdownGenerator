@@ -175,6 +175,11 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     	output_named_dropdown_with_id('section', mysql_query($sql));
     	echo "<pre>$sql</pre>";
     }
+    elseif (changed_from_null($newCor, $oldCor) || changed_from_val($newCor, $oldCor)) {
+    	$sql = "select S.ID, D.Abbreviation, C.Number as CNum, S.Number as SNum, P.Name, S.Semester, S.Year from section as S, professor as P, course as C, department as D where C.D_ID = D.ID and P_ID = P.ID and C_ID = C.ID and C_ID = $newCor".($newProf != -1 && $newProf != null ? " and P_ID = $newProf;": ';');
+    	output_named_dropdown_with_id('section', mysql_query($sql));
+    	echo "<pre>$sql</pre>";
+    }
     else {
     	echo 'Dispatcher did not recognize valid case for input: '.var_export($_GET, true);
     }
