@@ -186,8 +186,9 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     	$sql = "select * from resource where S_ID = $newSec;";
     	$result = mysql_query($sql);
     	echo "<table id='output'><tr><td>Resources for section with ID = $newSec</td></tr>";
+    	echo '<tr><td>Description</td><td>Path</td><td>Upload Date</td></tr>';
     	while ($row = mysql_fetch_array($result)) {
-    		echo "<tr><td>{$row['ID']}</td></tr>";
+    		echo "<tr value='{$row['ID']}><td>{$row['Description']}</td><td>{$row['Path']}</td><td>{$row['Upload_Date']}</td></tr>";
     	}
     	echo "</table>";
 //     	echo "<h1 id='output'>Data for section with ID=$newSec</h1>";
