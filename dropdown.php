@@ -165,7 +165,7 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     }
     elseif (changed_from_null($newProf, $oldProf) || changed_from_val($newProf, $oldProf)) {
     	$sql = "select ID, Name from section where P_ID = $newProf".($newCor != -1 && $newCor != null ? " and C_ID = $newCor;": ';');
-    	output_named_dropdown_with_id('course', mysql_query($sql));
+    	output_named_dropdown_with_id('section', mysql_query($sql));
     	echo "<pre>$sql</pre>";
     }
     else {
