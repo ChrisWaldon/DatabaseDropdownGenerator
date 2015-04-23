@@ -145,22 +145,25 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
 	if ($newUni == -1) {//if invalid selection, do nothing.
 		return; 
 	}
-    if ($newUni == null) { //if nothing has been selected. Presumably, nothing has been served to the user
+    elseif ($newUni == null) { //if nothing has been selected. Presumably, nothing has been served to the user
 		output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
 		return;
     }	
-    if (changed_from_null($newUni, $oldUni) || changed_from_val($newUni, $oldU)) {//if we have a new university, re-serve department
+    elseif (changed_from_null($newUni, $oldUni) || changed_from_val($newUni, $oldU)) {//if we have a new university, re-serve department
     	$sql = "select ID, Name from department where U_ID = $newUni;";
     	output_named_dropdown_with_id('department', mysql_query($sql)); 
 //     	echo "<pre>$sql</pre>";
     }
-    if (changed_from_null($newDep, $oldDep) || changed_from_val($newDep, $oldDep)) {
+    elseif (changed_from_null($newDep, $oldDep) || changed_from_val($newDep, $oldDep)) {
     	$sql = "select ID, Name from professor where D_ID = $newDep;";
     	output_named_dropdown_with_id('professor', mysql_query($sql)); 
 //     	echo "<pre>$sql</pre>";
     	$sql = "select ID, Name from course where D_ID = $newDep;";
     	output_named_dropdown_with_id('course', mysql_query($sql)); 
 //     	echo "<pre>$sql</pre>";
+    }
+    else {
+    	echo 'Dispatcher did not recognize valid case for input: '.var_export($_GET, true);
     }
 }
 //generate a dropdown whenever this script is run from AJAX
