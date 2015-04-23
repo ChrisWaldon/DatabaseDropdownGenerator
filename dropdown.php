@@ -138,7 +138,7 @@ function changed_from_null($newVal, $oldVal) {
 }
 
 function changed_from_val($newVal, $oldVal) {
-	return $oldVal != null && $newVal != $oldVal;
+	return $oldVal != null && $newVal != $oldVal && $newval != -1;
 }
 
 function unchanged($newVal, $oldVal) {
