@@ -185,7 +185,7 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     elseif (changed_from_null($newSec, $oldSec)) {
     	$sql = "select * from resource where S_ID = $newSec;";
     	$result = mysql_query($sql);
-    	echo "<table id='output'><tr><td>Resources for section with ID = {$row['S_ID']}</td></tr>";
+    	echo "<table id='output'><tr><td>Resources for section with ID = $newSec</td></tr>";
     	while ($row = mysql_fetch_array($result)) {
     		echo "<tr><td>{$row['ID']}</td></tr>";
     	}
