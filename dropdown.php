@@ -109,7 +109,7 @@ function output_named_dropdown_with_id($id, $queryResult) {
     }
     else { //handle the normal ID/Name option output
             while ($row = mysql_fetch_array($queryResult)) {
-                echo '<option value="'.$row['ID'].'">'.$row['Name'].'</option>';
+                echo '<option value="'.$row['ID'].'">'.($id == 'course' ? "{$row['Abbreviation']}{$row['Number']} ": "").$row['Name'].'</option>';
             }
     }
     echo '</select></li>';
@@ -166,7 +166,7 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     	$sql = "select ID, Name from professor where D_ID = $newDep;";
     	output_named_dropdown_with_id('professor', mysql_query($sql)); 
 //     	echo "<pre>$sql</pre>";
-    	$sql = "select ID, Name from course where D_ID = $newDep;";
+    	$sql = "select ID, Name, Abbreviation, Number from course, department as D where D_ID = D.ID and D_ID = $newDep;";
     	output_named_dropdown_with_id('course', mysql_query($sql)); 
 //     	echo "<pre>$sql</pre>";
     }
