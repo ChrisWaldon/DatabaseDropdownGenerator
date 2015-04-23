@@ -142,6 +142,7 @@ function unchanged($newVal, $oldVal) {
  * back-end response.
  */
 function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $newCor, $oldCor, $newSec, $oldSec) {
+	echo '<pre>'.var_export($_GET,true).'</pre>';
 	if ($newUni == -1) {//if invalid selection, do nothing.
 		return; 
 	}
