@@ -182,6 +182,9 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     	output_named_dropdown_with_id('section', mysql_query($sql));
 //     	echo "<pre>$sql</pre>";
     }
+    elseif (changed_from_null($newSec, $oldSec)) {
+    	echo "<h1>Data for section with ID=$newSec</h1>";
+    }
     else {
     	echo 'Dispatcher did not recognize valid case for input: '.var_export($_GET, true);
     }
