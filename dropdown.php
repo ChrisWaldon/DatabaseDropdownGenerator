@@ -134,7 +134,7 @@ function clean_input($var) {
  * helper function taht determines whether a new value has changed from null
  */
 function changed_from_null($newVal, $oldVal) {
-	return $oldVal == null && $newVal != $oldVal;
+	return $oldVal == null && $newVal != $oldVal && $newVal != -1;
 }
 
 function changed_from_val($newVal, $oldVal) {
