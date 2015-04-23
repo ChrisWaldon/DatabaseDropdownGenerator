@@ -149,7 +149,7 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
 		output_named_dropdown_with_id('university', mysql_query('select ID, Name from university'));
 		return;
     }	
-    elseif (changed_from_null($newUni, $oldUni) || changed_from_val($newUni, $oldU)) {//if we have a new university, re-serve department
+    elseif (changed_from_null($newUni, $oldUni) || changed_from_val($newUni, $oldUni)) {//if we have a new university, re-serve department
     	$sql = "select ID, Name from department where U_ID = $newUni;";
     	output_named_dropdown_with_id('department', mysql_query($sql)); 
 //     	echo "<pre>$sql</pre>";
