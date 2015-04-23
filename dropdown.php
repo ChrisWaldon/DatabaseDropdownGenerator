@@ -166,7 +166,7 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     	$sql = "select ID, Name from professor where D_ID = $newDep;";
     	output_named_dropdown_with_id('professor', mysql_query($sql)); 
 //     	echo "<pre>$sql</pre>";
-    	$sql = "select ID, Name, Abbreviation, Number from course, department as D where D_ID = D.ID and D_ID = $newDep;";
+    	$sql = "select C.ID, C.Name, D.Abbreviation, C.Number from course as C, department as D where D_ID = D.ID and D_ID = $newDep;";
     	output_named_dropdown_with_id('course', mysql_query($sql)); 
 //     	echo "<pre>$sql</pre>";
     }
