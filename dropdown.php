@@ -138,7 +138,7 @@ function changed_from_null($newVal, $oldVal) {
 }
 
 function changed_from_val($newVal, $oldVal) {
-	return $oldVal != null && $newVal != $oldVal && $newval != -1;
+	return $oldVal != null && $newVal != $oldVal;
 }
 
 function unchanged($newVal, $oldVal) {
@@ -183,7 +183,14 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
 //     	echo "<pre>$sql</pre>";
     }
     elseif (changed_from_null($newSec, $oldSec)) {
-    	echo "<h1 id='output'>Data for section with ID=$newSec</h1>";
+    	$sql = "select * from resource where S_ID = $newSec;";
+    	$result = mysql_query($sql);
+    	echo "<table id='output'><tr><td>Resources for section with ID = {$row['S_ID']}</td></tr>";
+    	while ($row = mysql_fetch_array($result)) {
+    		echo "<tr><td>{$row['ID']}</td></tr>";
+    	}
+    	echo "</table>";
+//     	echo "<h1 id='output'>Data for section with ID=$newSec</h1>";
     }
     else {
     	echo 'Dispatcher did not recognize valid case for input: '.var_export($_GET, true);
