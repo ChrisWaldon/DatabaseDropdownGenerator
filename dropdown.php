@@ -103,7 +103,8 @@ function output_named_dropdown_with_id($id, $queryResult) {
     echo '<li class="dropdown"><select class="form-control" id="'.$id.'"><option value="-1">'.$id.' [choose one]</option>';
     if ($id == 'section') { //handle the more complex entries for the section dropdown
     	while ($row = mysql_fetch_array($queryResult)) {
-    		echo '<pre>'.var_export($row, true).'</pre>';
+    		echo "<option value='{$row['ID']}'>{$row['CNum']} {$row['SNum']} {$row['Name']}</option>";
+//     		echo '<pre>'.var_export($row, true).'</pre>';
     	}
     }
     else { //handle the normal ID/Name option output
@@ -170,7 +171,7 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
 //     	echo "<pre>$sql</pre>";
     }
     elseif (changed_from_null($newProf, $oldProf) || changed_from_val($newProf, $oldProf)) {
-    	$sql = "select S.ID, C.Number, S.Number, P.Name from section as S, professor as P, course as C where P_ID = P.ID and C_ID = C.ID and P_ID = $newProf".($newCor != -1 && $newCor != null ? " and C_ID = $newCor;": ';');
+    	$sql = "select S.ID, C.Number as CNum, S.Number as SNum, P.Name from section as S, professor as P, course as C where P_ID = P.ID and C_ID = C.ID and P_ID = $newProf".($newCor != -1 && $newCor != null ? " and C_ID = $newCor;": ';');
     	output_named_dropdown_with_id('section', mysql_query($sql));
     	echo "<pre>$sql</pre>";
     }
