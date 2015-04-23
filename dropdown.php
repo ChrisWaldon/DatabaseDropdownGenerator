@@ -185,8 +185,8 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     elseif (changed_from_null($newSec, $oldSec)) {
     	$sql = "select * from resource where S_ID = $newSec;";
     	$result = mysql_query($sql);
-    	echo "<table id='output'><tr><td>Resources for section with ID = $newSec</td><td></td><td></td></tr>";
-    	echo '<tr><td>Description</td><td>Path&nbsp;&nbsp;&nbsp;</td><td>Upload Date</td></tr>';
+    	echo "<table id='output' class='table table-hover' value='$newSec'>";
+    	echo '<thead><tr><td>Description</td><td>Path</td><td>Upload Date</td></tr></thead>';
     	while ($row = mysql_fetch_array($result)) {
     		echo "<tr value='{$row['ID']}><td>{$row['Description']}</td><td>{$row['Path']}</td><td>{$row['Upload_Date']}</td></tr>";
     	}
