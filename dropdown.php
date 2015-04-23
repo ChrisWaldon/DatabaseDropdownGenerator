@@ -142,7 +142,7 @@ function unchanged($newVal, $oldVal) {
  * back-end response.
  */
 function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $newCor, $oldCor, $newSec, $oldSec) {
-	echo '<pre>'.var_export($_GET,true).'</pre>';
+// 	echo '<pre>'.var_export($_GET,true).'</pre>';
 	if ($newUni == -1) {//if invalid selection, do nothing.
 		return; 
 	}
@@ -158,10 +158,10 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     elseif (changed_from_null($newDep, $oldDep) || changed_from_val($newDep, $oldDep)) {
     	$sql = "select ID, Name from professor where D_ID = $newDep;";
     	output_named_dropdown_with_id('professor', mysql_query($sql)); 
-    	echo "<pre>$sql</pre>";
+//     	echo "<pre>$sql</pre>";
     	$sql = "select ID, Name from course where D_ID = $newDep;";
     	output_named_dropdown_with_id('course', mysql_query($sql)); 
-    	echo "<pre>$sql</pre>";
+//     	echo "<pre>$sql</pre>";
     }
     else {
     	echo 'Dispatcher did not recognize valid case for input: '.var_export($_GET, true);
