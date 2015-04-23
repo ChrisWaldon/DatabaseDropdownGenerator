@@ -188,7 +188,7 @@ function dispatcher($newUni, $oldUni, $newDep, $oldDep, $newProf, $oldProf, $new
     	echo "<table id='output' class='table table-hover' value='$newSec'>";
     	echo '<thead><tr><td>Description</td><td>Path</td><td>Upload Date</td></tr></thead>';
     	while ($row = mysql_fetch_array($result)) {
-    		echo "<tr value='{$row['ID']}><td>{$row['Description']}</td><td>{$row['Path']}</td><td>{$row['Upload_Date']}</td></tr>";
+    		echo "<tr value='{$row['ID']}'><td>{$row['Description']}</td><td>{$row['Path']}</td><td>{$row['Upload_Date']}</td></tr>";
     	}
     	echo "</table>";
     	echo "<pre>$sql</pre>";
